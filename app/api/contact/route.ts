@@ -88,9 +88,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: GENERIC_EMAIL_FAILURE }, { status: 503 });
   }
 
-  // Submitted form data is validated above but intentionally not used in the Resend payload (debugging 403).
-  void validated.data;
-
   const resend = new Resend(apiKey);
 
   try {
