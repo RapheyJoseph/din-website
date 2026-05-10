@@ -1,6 +1,10 @@
 /** Shared Tailwind class fragments — restrained, premium SaaS (depth without neon). */
+/**
+ * Avoid `100vw` in max-width math — it includes the scrollbar gutter and often causes 1–17px
+ * horizontal overflow on mobile. Gutters come from `px-*` + `max-w-7xl`; at 2xl we cap at 92rem.
+ */
 export const sectionContainer =
-  "mx-auto w-full max-w-7xl 2xl:max-w-[min(92rem,calc(100vw-3rem))] px-4 sm:px-6 lg:px-8 2xl:px-12";
+  "mx-auto w-full min-w-0 max-w-7xl 2xl:max-w-[92rem] px-4 sm:px-6 lg:px-8 2xl:px-12";
 
 /** Standard vertical rhythm between major bands — tighter than marketing-default, still breathable */
 export const sectionY =

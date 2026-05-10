@@ -20,8 +20,8 @@ export function SectionHeading({
     <div
       className={
         center
-          ? "mx-auto max-w-3xl text-center lg:max-w-4xl"
-          : "max-w-3xl lg:max-w-4xl"
+          ? "mx-auto min-w-0 max-w-3xl text-center lg:max-w-4xl"
+          : "min-w-0 max-w-3xl lg:max-w-4xl"
       }
     >
       <span className="inline-flex items-center rounded-full border border-white/[0.1] bg-white/[0.04] px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.2em] text-slate-500">

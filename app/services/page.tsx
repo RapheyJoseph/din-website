@@ -40,7 +40,7 @@ export default function ServicesPage() {
           description="From manual depth to automated scale, every engagement is structured around risk, release velocity, and customer trust."
         />
       </Reveal>
-      <div className="mt-9 grid gap-4 md:grid-cols-2 md:gap-5 xl:grid-cols-3 xl:gap-5 2xl:gap-6">
+      <div className="mt-9 grid min-w-0 w-full grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 xl:grid-cols-3 xl:gap-5 2xl:gap-6">
         {coreServices.map((service, index) => (
           <Reveal key={service.title} delay={index * 0.05}>
             <ServiceCard

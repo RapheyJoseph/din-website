@@ -22,7 +22,7 @@ export function FaqItem({ question, answer }: FaqItemProps) {
         onClick={() => setOpen((value) => !value)}
         className="flex w-full items-center justify-between gap-4 px-5 py-3.5 text-left sm:px-6 sm:py-4"
       >
-        <span className="text-[15px] font-medium leading-snug text-white sm:text-base">
+        <span className="min-w-0 flex-1 text-[15px] font-medium leading-snug text-white sm:text-base">
           {question}
         </span>
         <ChevronDown

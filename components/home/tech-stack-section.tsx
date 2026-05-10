@@ -15,7 +15,7 @@ export function TechStackSection() {
         title="Tooling that matches how serious teams ship"
         description="We standardize on modern automation and observability patterns, then align execution with your CI/CD, environments, and compliance posture."
       />
-      <div className="mt-7 grid gap-3.5 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4 2xl:gap-5">
+      <div className="mt-7 grid min-w-0 w-full grid-cols-1 gap-3.5 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4 2xl:gap-5">
         {techStack.map((item, index) => {
           const Icon = item.Icon;
           return (
@@ -23,7 +23,7 @@ export function TechStackSection() {
               <motion.div
                 whileHover={{ y: -2 }}
                   transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                className={`${glassPanel} ${glassPanelHover} group relative h-full overflow-hidden p-5 sm:p-6`}
+                className={`${glassPanel} ${glassPanelHover} group relative h-full min-w-0 max-w-full overflow-hidden p-5 sm:p-6`}
               >
                 <div
                   aria-hidden

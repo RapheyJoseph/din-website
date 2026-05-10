@@ -23,7 +23,7 @@ export default function ContactPage() {
         />
       </Reveal>
 
-      <div className="mt-9 grid gap-7 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-10 xl:gap-14">
+      <div className="mt-9 grid min-w-0 w-full grid-cols-1 gap-7 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-10 xl:gap-14">
         <Reveal>
           <ContactForm />
         </Reveal>

@@ -23,7 +23,10 @@ export function SectionShell({
   variant = "default",
 }: SectionShellProps) {
   return (
-    <section id={id} className={`${sectionContainer} ${variantPadding[variant]} ${className}`}>
+    <section
+      id={id}
+      className={`${sectionContainer} ${variantPadding[variant]} ${className}`}
+    >
       {children}
     </section>
   );

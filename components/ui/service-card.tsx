@@ -10,7 +10,7 @@ type ServiceCardProps = {
 export function ServiceCard({ title, description, Icon }: ServiceCardProps) {
   return (
     <article
-      className={`${glassPanel} ${glassPanelHover} group relative h-full overflow-hidden p-5 sm:p-6`}
+      className={`${glassPanel} ${glassPanelHover} group relative h-full min-w-0 max-w-full overflow-hidden p-5 sm:p-6`}
     >
       <div
         aria-hidden

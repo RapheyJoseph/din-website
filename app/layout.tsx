@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/layout/footer";
@@ -14,6 +14,12 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://din-dailyitneeds.vercel.app"),
@@ -71,22 +77,22 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased overflow-x-hidden`}
     >
       {/* Extensions often inject attributes on <body> before hydrate; suppress avoids false-positive mismatch warnings */}
       <body
         suppressHydrationWarning
-        className="min-h-full overflow-x-hidden text-slate-100"
+        className="relative min-h-full text-slate-100"
       >
         <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
           <div className="absolute inset-x-0 top-0 h-[min(58vh,600px)] bg-gradient-to-b from-slate-900/90 via-slate-950/40 to-transparent" />
-          <div className="absolute -left-36 top-[-8%] h-[min(32rem,85vw)] w-[min(32rem,85vw)] rounded-full bg-blue-950/50 blur-[100px]" />
-          <div className="absolute left-1/2 top-20 h-[min(22rem,70vw)] w-[min(36rem,90vw)] -translate-x-1/2 rounded-full bg-indigo-950/35 blur-[88px] 2xl:w-[44rem]" />
-          <div className="absolute right-[-12%] top-28 h-[min(24rem,70vw)] w-[min(24rem,70vw)] rounded-full bg-slate-800/30 blur-[96px]" />
-          <div className="absolute bottom-0 left-[18%] h-[22rem] w-[22rem] rounded-full bg-slate-900/50 blur-[100px]" />
+          <div className="absolute -left-36 top-[-8%] size-[min(32rem,90%)] rounded-full bg-blue-950/50 blur-[100px]" />
+          <div className="absolute left-1/2 top-20 h-[min(22rem,70%)] w-[min(36rem,92%)] max-w-[44rem] -translate-x-1/2 rounded-full bg-indigo-950/35 blur-[88px]" />
+          <div className="absolute right-[-12%] top-28 size-[min(24rem,88%)] rounded-full bg-slate-800/30 blur-[96px]" />
+          <div className="absolute bottom-0 left-[18%] size-[min(22rem,55%)] rounded-full bg-slate-900/50 blur-[100px]" />
         </div>
         <Navbar />
-        <main className="relative min-w-0">{children}</main>
+        <main className="relative w-full min-w-0 overflow-x-hidden">{children}</main>
         <Footer />
         <FloatingConsultationButton />
       </body>

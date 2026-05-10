@@ -18,19 +18,22 @@ const trustPoints = [
 
 export function HeroSection() {
   return (
-    <div className="relative">
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-[1] overflow-visible">
-        <div className="absolute -right-28 top-[-12%] h-[min(420px,55vh)] w-[min(420px,60vw)] rounded-full bg-blue-950/45 blur-[100px]" />
-        <div className="absolute -left-28 bottom-[-10%] h-64 w-64 rounded-full bg-slate-800/35 blur-[88px]" />
+    <div className="relative w-full min-w-0 max-w-full overflow-x-hidden">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-[1] overflow-hidden md:overflow-visible"
+      >
+        <div className="absolute -right-10 top-[-10%] size-[min(240px,72%)] rounded-full bg-blue-950/45 blur-[80px] sm:-right-24 sm:size-[min(320px,75%)] lg:-right-28 lg:h-[min(420px,55vh)] lg:w-[min(420px,70%)] lg:blur-[100px]" />
+        <div className="absolute -left-14 bottom-[-8%] size-48 rounded-full bg-slate-800/35 blur-[72px] md:-left-28 md:h-64 md:w-64 md:blur-[88px]" />
       </div>
 
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="relative grid items-start gap-8 lg:grid-cols-[minmax(0,1.12fr)_minmax(0,0.88fr)] lg:gap-10 xl:gap-12 2xl:gap-14"
+        className="relative grid w-full min-w-0 max-w-full items-start gap-8 lg:grid-cols-[minmax(0,1.12fr)_minmax(0,0.88fr)] lg:gap-10 xl:gap-12 2xl:gap-14"
       >
-        <div className="min-w-0">
+        <div className="min-w-0 max-w-full">
           <motion.span
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
@@ -44,7 +47,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.08, duration: 0.45 }}
-            className="mt-5 text-[2.25rem] font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-[3.35rem] lg:leading-[1.06] xl:text-6xl xl:leading-[1.05]"
+            className="mt-5 text-balance break-words text-[clamp(1.8125rem,6.2vw,2.25rem)] font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-[3.35rem] lg:leading-[1.06] xl:text-6xl xl:leading-[1.05]"
           >
             <span className="block">Ship releases your customers feel -</span>
             <span className="mt-1 block bg-gradient-to-b from-slate-100 to-slate-400 bg-clip-text text-transparent sm:mt-1.5">
@@ -65,14 +68,17 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.14, duration: 0.45 }}
-            className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3"
+            className="mt-6 flex w-full min-w-0 max-w-full flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3"
           >
-            <Link href="/contact" className={`${btnPrimaryHero} w-full justify-center sm:w-auto`}>
+            <Link
+              href="/contact"
+              className={`${btnPrimaryHero} box-border w-full max-w-full shrink-0 justify-center sm:w-auto sm:max-w-none`}
+            >
               Book a strategy call
             </Link>
             <Link
               href="/services"
-              className={`${btnSecondary} w-full justify-center px-7 py-3 text-[15px] sm:w-auto`}
+              className={`${btnSecondary} box-border w-full max-w-full shrink-0 justify-center px-7 py-3 text-[15px] sm:w-auto sm:max-w-none`}
             >
               Explore the stack
             </Link>
@@ -95,7 +101,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.09, duration: 0.45 }}
-          className={`${glassPanel} relative overflow-hidden p-6 sm:p-7 lg:p-8`}
+          className={`${glassPanel} relative min-w-0 max-w-full overflow-hidden p-6 sm:p-7 lg:p-8`}
         >
           <div
             aria-hidden
@@ -114,15 +120,15 @@ export function HeroSection() {
                   <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.04] text-xs font-medium text-slate-300">
                     {i + 1}
                   </span>
-                  <span>{line}</span>
+                  <span className="min-w-0">{line}</span>
                 </li>
               ))}
             </ul>
-            <div className="mt-6 rounded-xl border border-white/[0.08] bg-slate-950/40 p-3.5 sm:p-4">
+            <div className="mt-6 max-w-full rounded-xl border border-white/[0.08] bg-slate-950/40 p-3.5 sm:p-4">
               <p className="text-xs font-medium uppercase tracking-widest text-slate-500">
                 Plays nice with your stack
               </p>
-              <p className="mt-2 text-sm leading-relaxed text-slate-400">
+              <p className="mt-2 text-pretty text-sm leading-relaxed text-slate-400">
                 Slack/Teams, Jira/Linear, GitHub Actions—quality signals where your team
                 already lives.
               </p>

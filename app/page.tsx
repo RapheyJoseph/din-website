@@ -44,7 +44,7 @@ export default function Home() {
       <SectionDivider />
 
       <SectionShell>
-        <div className="grid gap-3.5 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4 2xl:gap-5">
+        <div className="grid min-w-0 w-full grid-cols-1 gap-3.5 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4 2xl:gap-5">
           {stats.map((item, index) => (
             <Reveal key={item.title} delay={index * 0.05}>
               <div className={`${glassPanel} ${glassPanelHover} px-6 py-6 text-center`}>
@@ -69,7 +69,7 @@ export default function Home() {
           title="Quality engineering for every surface your customers touch"
           description="Manual depth where human judgment matters, automation where repeatability wins—aligned to your roadmap, risk profile, and compliance expectations."
         />
-        <div className="mt-7 grid gap-4 md:grid-cols-2 md:gap-5 xl:grid-cols-3 2xl:gap-5">
+        <div className="mt-7 grid min-w-0 w-full grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 xl:grid-cols-3 2xl:gap-5">
           {coreServices.map((service, index) => (
             <Reveal key={service.title} delay={index * 0.045}>
               <ServiceCard
@@ -91,7 +91,7 @@ export default function Home() {
       <SectionDivider />
 
       <SectionShell>
-        <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+        <div className="grid min-w-0 w-full grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
           <Reveal>
             <SectionHeading
               vibrantTitle
@@ -157,7 +157,7 @@ export default function Home() {
           title="What leaders say after partnering with Daily IT Needs"
           description="Representative engagement outcomes from product and engineering teams operating at scale."
         />
-        <div className="mt-7 grid gap-4 md:grid-cols-2 md:gap-5 xl:grid-cols-3 xl:gap-5 2xl:gap-6">
+        <div className="mt-7 grid min-w-0 w-full grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 xl:grid-cols-3 xl:gap-5 2xl:gap-6">
           {testimonials.map((item, index) => (
             <Reveal key={item.name} delay={index * 0.06}>
               <TestimonialCard testimonial={item} />
@@ -197,7 +197,10 @@ export default function Home() {
                 Walk through your roadmap with a QA lead—automation, coverage, and the
                 story you tell stakeholders when the release train accelerates.
               </p>
-              <Link href="/contact" className={`${btnPrimaryHero} mt-6 sm:mt-8`}>
+              <Link
+                href="/contact"
+                className={`${btnPrimaryHero} mt-6 box-border max-w-full inline-flex sm:mt-8`}
+              >
                 Speak with an engineering lead
               </Link>
             </div>

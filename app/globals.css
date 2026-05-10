@@ -26,9 +26,11 @@
 
 html {
   -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
 }
 
 body {
+  overflow-x: clip;
   background-color: var(--background);
   background-image:
     radial-gradient(ellipse 100% 65% at 50% -25%, rgba(30, 58, 138, 0.2), transparent 58%),

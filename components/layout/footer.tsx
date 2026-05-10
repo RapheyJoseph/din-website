@@ -26,8 +26,8 @@ export function Footer() {
   return (
     <footer className="border-t border-white/[0.06] bg-slate-950/95">
       <div className={`${sectionContainer} py-11 lg:py-14 2xl:py-16`}>
-        <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr] xl:gap-12">
-          <div className="max-w-md">
+        <div className="grid min-w-0 w-full gap-10 lg:grid-cols-[1.4fr_1fr_1fr] xl:gap-12">
+          <div className="max-w-md min-w-0">
             <BrandLogoLink variant="footer" className="flex-wrap" />
             <p className="mt-4 text-sm leading-relaxed text-slate-400">
               Enterprise-grade QA and test automation for teams where release quality is a

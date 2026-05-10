@@ -14,7 +14,7 @@ function initials(name: string) {
 export function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
     <blockquote
-      className={`${glassPanel} ${glassPanelHover} group relative flex h-full flex-col overflow-hidden p-5 sm:p-6`}
+      className={`${glassPanel} ${glassPanelHover} group relative flex h-full min-w-0 max-w-full flex-col overflow-hidden p-5 sm:p-6`}
     >
       <div
         aria-hidden

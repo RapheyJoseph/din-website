@@ -121,7 +121,7 @@ export default function AboutPage() {
         />
       </Reveal>
 
-      <div className="mt-9 grid gap-4 md:grid-cols-2 lg:gap-5">
+      <div className="mt-9 grid min-w-0 w-full grid-cols-1 gap-4 md:grid-cols-2 lg:gap-5">
         <Reveal>
           <article className={`${glassPanel} h-full p-5 sm:p-6`}>
             <h3 className="text-xl font-semibold tracking-tight text-white">Mission</h3>
@@ -187,7 +187,7 @@ export default function AboutPage() {
               aria-hidden
               className="pointer-events-none absolute -right-10 top-0 h-28 w-28 rounded-full bg-blue-950/25 opacity-60 blur-2xl transition-opacity duration-300 group-hover:opacity-85"
             />
-            <div className="relative grid gap-6 sm:gap-7 md:grid-cols-[minmax(0,260px)_minmax(0,1fr)] md:items-center md:gap-8 lg:grid-cols-[minmax(0,300px)_minmax(0,1fr)] lg:gap-10">
+            <div className="relative grid min-w-0 w-full grid-cols-1 gap-6 sm:gap-7 md:grid-cols-[minmax(0,260px)_minmax(0,1fr)] md:items-center md:gap-8 lg:grid-cols-[minmax(0,300px)_minmax(0,1fr)] lg:gap-10">
               <div className="relative mx-auto w-full max-w-[280px] overflow-hidden rounded-2xl border border-white/[0.12] bg-slate-900/70 shadow-[0_20px_50px_-28px_rgba(15,23,42,0.9),0_0_0_1px_rgba(59,130,246,0.16)] md:mx-0 md:max-w-none">
                 <Image
                   src={founderProfile.image}
@@ -268,7 +268,7 @@ export default function AboutPage() {
               aria-hidden
               className="pointer-events-none absolute -right-10 top-0 h-28 w-28 rounded-full bg-blue-950/25 opacity-60 blur-2xl transition-opacity duration-300 group-hover:opacity-85"
             />
-            <div className="relative grid gap-6 sm:gap-7 md:grid-cols-[minmax(0,260px)_minmax(0,1fr)] md:items-center md:gap-8 lg:grid-cols-[minmax(0,300px)_minmax(0,1fr)] lg:gap-10">
+            <div className="relative grid min-w-0 w-full grid-cols-1 gap-6 sm:gap-7 md:grid-cols-[minmax(0,260px)_minmax(0,1fr)] md:items-center md:gap-8 lg:grid-cols-[minmax(0,300px)_minmax(0,1fr)] lg:gap-10">
               <div className="relative isolate mx-auto w-full max-w-[280px] overflow-hidden rounded-2xl border border-white/[0.12] bg-slate-900/70 shadow-[0_20px_50px_-28px_rgba(15,23,42,0.9),0_0_0_1px_rgba(59,130,246,0.16)] md:mx-0 md:max-w-none">
                 <div className="relative h-[13.5rem] w-full overflow-hidden sm:h-[15rem] md:h-[17.25rem] lg:h-[18.75rem]">
                   <Image
@@ -337,7 +337,7 @@ export default function AboutPage() {
           title="Professional Recommendations"
           description="Real feedback from professionals, collaborators, and leadership teams."
         />
-        <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3 xl:gap-5">
+        <div className="mt-7 grid min-w-0 w-full grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 xl:gap-5">
           {recommendations.map((item, index) => (
             <Reveal key={`${item.name}-${index}`} delay={index * 0.05}>
               <article
