@@ -77,7 +77,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased overflow-x-hidden`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased overflow-x-clip overflow-y-visible`}
     >
       {/* Extensions often inject attributes on <body> before hydrate; suppress avoids false-positive mismatch warnings */}
       <body
@@ -92,7 +92,8 @@ export default function RootLayout({
           <div className="absolute bottom-0 left-[18%] size-[min(22rem,55%)] rounded-full bg-slate-900/50 blur-[100px]" />
         </div>
         <Navbar />
-        <main className="relative w-full min-w-0 overflow-x-hidden">{children}</main>
+        {/* overflow-x-clip: x:hidden would force overflow-y:auto when y is visible (nested scroll traps). */}
+        <main className="relative w-full min-w-0 overflow-x-clip overflow-y-visible">{children}</main>
         <Footer />
         <FloatingConsultationButton />
       </body>

@@ -26,7 +26,9 @@
 
 html {
   -webkit-tap-highlight-color: transparent;
-  overflow-x: hidden;
+  /* clip avoids pairing with overflow-y:auto (forced when using overflow-x:hidden + y:visible) */
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 body {

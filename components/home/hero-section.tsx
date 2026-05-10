@@ -18,7 +18,7 @@ const trustPoints = [
 
 export function HeroSection() {
   return (
-    <div className="relative w-full min-w-0 max-w-full overflow-x-hidden">
+    <div className="relative w-full min-w-0 max-w-full overflow-x-clip overflow-y-visible">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-[1] overflow-hidden md:overflow-visible"

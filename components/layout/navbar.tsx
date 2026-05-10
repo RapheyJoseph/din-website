@@ -90,7 +90,7 @@ export function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute left-4 right-4 top-[max(4.25rem,env(safe-area-inset-top)+3.5rem)] z-10 max-h-[min(70vh,calc(100dvh-6rem))] overflow-y-auto overflow-x-hidden rounded-2xl border border-white/10 bg-slate-950/96 p-2 shadow-2xl shadow-black/50"
+              className="absolute left-4 right-4 top-[max(4.25rem,env(safe-area-inset-top)+3.5rem)] z-10 max-h-[min(70vh,calc(100dvh-6rem))] overflow-y-auto overflow-x-clip rounded-2xl border border-white/10 bg-slate-950/96 p-2 shadow-2xl shadow-black/50"
             >
               {navLinks.map((item) => {
                 const isActive = pathname === item.href;
