@@ -4,21 +4,45 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { BrandLogoLink } from "@/components/brand/brand-logo";
 import { navLinks } from "@/lib/data";
 import { btnPrimary, sectionContainer } from "@/lib/ui-classes";
 
+const MOBILE_MENU_ROOT_ID = "mobile-menu-root";
+const SCROLL_OPTS = { capture: true, passive: true } as const;
+
+function detachOverlayPointerEvents(root: HTMLElement | null) {
+  if (!root) return;
+  root.setAttribute("inert", "");
+  root.style.pointerEvents = "none";
+}
+
+function restoreOverlayPointerEvents(root: HTMLElement | null) {
+  if (!root) return;
+  root.removeAttribute("inert");
+  root.style.removeProperty("pointer-events");
+}
+
 export function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [portalReady, setPortalReady] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const overlayRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    setPortalReady(true);
+  }, []);
 
   const closeMenu = useCallback(() => {
+    const root = overlayRef.current ?? document.getElementById(MOBILE_MENU_ROOT_ID);
+    detachOverlayPointerEvents(root);
     setOpen(false);
   }, []);
 
-  /** Lock document scroll (html + body); iOS-friendly without layout jump when possible. */
+  /** Lock document scroll; always restore previous inline styles on close/unmount. */
   useEffect(() => {
     if (!open) return;
     const html = document.documentElement;
@@ -39,40 +63,143 @@ export function Navbar() {
     };
   }, [open]);
 
-  /** Close on Escape, document scroll (not drawer scroll), and route changes. */
+  /** After open, ensure overlay is interactive (covers reopen after inert teardown). */
+  useLayoutEffect(() => {
+    if (!open) return;
+    const root = overlayRef.current ?? document.getElementById(MOBILE_MENU_ROOT_ID);
+    restoreOverlayPointerEvents(root);
+  }, [open]);
+
+  /** Close on Escape, document/window scroll (not drawer scroll), breakpoint to desktop, route change. */
   useEffect(() => {
     if (!open) return;
 
-    const ignoreScrollCloseUntil = performance.now() + 180;
+    const ignoreScrollCloseUntil = performance.now() + 200;
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         e.preventDefault();
         closeMenu();
-        menuButtonRef.current?.focus();
+        queueMicrotask(() => menuButtonRef.current?.focus());
       }
     };
 
-    const onDocumentScroll = (e: Event) => {
-      if (performance.now() < ignoreScrollCloseUntil) return;
+    const shouldIgnoreScrollTarget = (target: EventTarget | null) => {
       const drawer = document.getElementById("mobile-nav");
-      const target = e.target;
-      if (target instanceof Node && drawer?.contains(target)) return;
+      if (!(target instanceof Node)) return false;
+      if (!drawer) return false;
+      return drawer === target || drawer.contains(target);
+    };
+
+    const onScrollClose = (e: Event) => {
+      if (performance.now() < ignoreScrollCloseUntil) return;
+      if (shouldIgnoreScrollTarget(e.target)) return;
       closeMenu();
     };
 
+    const onWindowScroll = () => {
+      if (performance.now() < ignoreScrollCloseUntil) return;
+      closeMenu();
+    };
+
+    const winScrollOpts: AddEventListenerOptions = { passive: true };
+
     document.addEventListener("keydown", onKeyDown);
-    document.addEventListener("scroll", onDocumentScroll, { capture: true, passive: true });
+    document.addEventListener("scroll", onScrollClose, SCROLL_OPTS);
+    window.addEventListener("scroll", onWindowScroll, winScrollOpts);
+
+    const mq = window.matchMedia("(min-width: 768px)");
+    const onMq = () => {
+      if (mq.matches) closeMenu();
+    };
+    mq.addEventListener("change", onMq);
 
     return () => {
       document.removeEventListener("keydown", onKeyDown);
-      document.removeEventListener("scroll", onDocumentScroll, true);
+      document.removeEventListener("scroll", onScrollClose, SCROLL_OPTS);
+      window.removeEventListener("scroll", onWindowScroll, winScrollOpts);
+      mq.removeEventListener("change", onMq);
     };
   }, [open, closeMenu]);
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+
+  /** If navbar unmounts, strip scroll-lock inline styles (React portal removes overlay nodes). */
+  useEffect(() => {
+    return () => {
+      const html = document.documentElement;
+      const body = document.body;
+      html.style.removeProperty("overflow");
+      html.style.removeProperty("overscroll-behavior");
+      body.style.removeProperty("overflow");
+    };
+  }, []);
+
+  const mobileOverlay = portalReady
+    ? createPortal(
+      <AnimatePresence>
+        {open ? (
+          <motion.div
+            key="mobile-menu"
+            ref={overlayRef}
+            id={MOBILE_MENU_ROOT_ID}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[200] touch-none overscroll-none md:hidden"
+            role="presentation"
+          >
+            <div
+              aria-hidden
+              className="absolute inset-0 z-0 cursor-default bg-black/60 backdrop-blur-sm"
+              onClick={closeMenu}
+              onPointerDownCapture={(e) => {
+                if (e.target === e.currentTarget) closeMenu();
+              }}
+            />
+            <motion.div
+              id="mobile-nav"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Site navigation"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+              className="pointer-events-auto absolute left-4 right-4 top-[max(4.25rem,env(safe-area-inset-top)+3.5rem)] z-10 max-h-[min(70vh,calc(100dvh-6rem))] touch-pan-y overflow-y-auto overflow-x-clip rounded-2xl border border-white/10 bg-slate-950/96 p-2 shadow-2xl shadow-black/50"
+            >
+              {navLinks.map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={closeMenu}
+                    className={`block min-h-12 rounded-xl px-4 py-3.5 text-[15px] font-medium leading-snug transition-colors duration-200 active:bg-white/[0.06] ${
+                      isActive ? "bg-white/[0.08] text-white" : "text-slate-300"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+              <Link
+                href="/contact"
+                onClick={closeMenu}
+                className={`${btnPrimary} mx-2 my-2 block min-h-12 w-[calc(100%-1rem)] max-w-full text-center`}
+              >
+                Schedule QA review
+              </Link>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>,
+      document.body,
+    )
+    : null;
 
   return (
     <header className="sticky top-0 z-50 w-full min-w-0 border-b border-white/[0.06] bg-slate-950/80 backdrop-blur-xl pt-[env(safe-area-inset-top)]">
@@ -121,60 +248,7 @@ export function Navbar() {
         </button>
       </nav>
 
-      <AnimatePresence>
-        {open ? (
-          <motion.div
-            key="mobile-menu"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 touch-none overscroll-none md:hidden"
-            role="presentation"
-          >
-            {/* Backdrop: taps close menu; does not scroll */}
-            <div
-              aria-hidden
-              className="absolute inset-0 z-0 cursor-default bg-black/60 backdrop-blur-sm"
-              onClick={closeMenu}
-            />
-            <motion.div
-              id="mobile-nav"
-              role="dialog"
-              aria-modal="true"
-              aria-label="Site navigation"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-              className="pointer-events-auto absolute left-4 right-4 top-[max(4.25rem,env(safe-area-inset-top)+3.5rem)] z-10 max-h-[min(70vh,calc(100dvh-6rem))] touch-pan-y overflow-y-auto overflow-x-clip rounded-2xl border border-white/10 bg-slate-950/96 p-2 shadow-2xl shadow-black/50"
-            >
-              {navLinks.map((item) => {
-                const isActive = pathname === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={closeMenu}
-                    className={`block min-h-12 rounded-xl px-4 py-3.5 text-[15px] font-medium leading-snug transition-colors duration-200 active:bg-white/[0.06] ${
-                      isActive ? "bg-white/[0.08] text-white" : "text-slate-300"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
-              <Link
-                href="/contact"
-                onClick={closeMenu}
-                className={`${btnPrimary} mx-2 my-2 block min-h-12 w-[calc(100%-1rem)] max-w-full text-center`}
-              >
-                Schedule QA review
-              </Link>
-            </motion.div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+      {mobileOverlay}
     </header>
   );
 }
