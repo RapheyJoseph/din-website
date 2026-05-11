@@ -16,32 +16,45 @@ export const metadata: Metadata = {
     "Mission, vision, and quality-first philosophy behind Daily IT Needs—premium QA for modern software delivery.",
 };
 
-const timeline = [
+/** Experience evolution — capability depth from delivery work, not a corporate chronology. */
+const evolutionMilestones = [
   {
-    year: "2020",
-    title: "Company Founded",
+    phase: "01",
+    title: "Manual QA foundations and release validation",
     description:
-      "Started with a focused mission to help product teams release with confidence through rigorous QA.",
+      "Structured exploratory and scripted coverage, defect triage, and release sign-off tied to business risk—evidence-led validation that keeps shipping disciplined without slowing momentum.",
   },
   {
-    year: "2022",
-    title: "Automation Excellence",
+    phase: "02",
+    title: "Automation framework adoption and scaling",
     description:
-      "Expanded into Cypress-based automation and API test strategy for high-growth SaaS clients.",
+      "Framework choices aligned to your stack, paced rollout in CI, and maintainable test design so automation compounds—reducing repetitive regression while keeping ownership clear.",
   },
   {
-    year: "2024",
-    title: "Accessibility & Performance Practice",
+    phase: "03",
+    title: "API and regression testing maturity",
     description:
-      "Added specialist services in accessibility and performance to support enterprise-grade quality.",
+      "Contract and negative-path coverage, data integrity checks, and regression suites sized to change velocity—fast feedback where failures are expensive and proportionate coverage everywhere else.",
   },
   {
-    year: "Today",
-    title: "Trusted QA Partner",
+    phase: "04",
+    title: "Accessibility and performance quality expansion",
     description:
-      "Supporting startups and scale-ups as a long-term QA function with measurable quality outcomes.",
+      "Inclusive UX validation and pragmatic performance checks grounded in real usage—clear findings and repro steps so teams can prioritize fixes before release pressure peaks.",
   },
-];
+  {
+    phase: "05",
+    title: "Cross-functional Agile/Scrum delivery collaboration",
+    description:
+      "Backlog refinement, definitions of ready and done, and visible quality work inside the same ceremonies as engineering—QA as a delivery partner, not a downstream handoff queue.",
+  },
+  {
+    phase: "06",
+    title: "Enterprise-grade QA process improvement",
+    description:
+      "Traceability, operating metrics, and lightweight governance that survives scale—repeatable rituals, documentation where stakeholders need it, and improvement loops tied to delivery outcomes.",
+  },
+] as const;
 
 const founderProfile = {
   name: "Shaheryar Malik",
@@ -80,6 +93,46 @@ const qaLeadProfile = {
   /** Anchor toward top so hair / head clearance reads like a polished headshot without stretching */
   imagePosition: "center 6%",
 };
+
+const COMPANY_QA_CONTACT_EMAIL = "hello@dailyitneeds.com";
+
+const salmanJamilProfile = {
+  name: "Salman Jamil",
+  role: "Senior Software Quality Assurance Engineer | Manual + Automation",
+  bio: "Senior Software Quality Assurance Engineer with experience across manual QA, automation testing, API testing, Agile/Scrum workflows, regression testing, and scalable QA processes. Experienced in automation frameworks and quality-focused release validation.",
+  specialties: [
+    "Manual QA",
+    "Automation Testing",
+    "Selenium",
+    "API Testing",
+    "Regression Testing",
+    "Agile/Scrum",
+  ],
+  linkedin: "https://www.linkedin.com/in/salman-j-864000164/",
+  email: COMPANY_QA_CONTACT_EMAIL,
+  image: "/leadership/salman-jamil.png",
+  imagePosition: "center 22%",
+} as const;
+
+const rehanMohiUdDinProfile = {
+  name: "Rehan Mohi-Ud-Din",
+  role: "Senior Software Quality Assurance Engineer",
+  bio: "Senior Software Quality Assurance Engineer with 7+ years of experience in manual testing, release validation, Agile workflows, end-to-end QA ownership, regression testing, and enterprise-level software quality processes. Experienced in ensuring reliable releases and scalable QA execution across complex products.",
+  specialties: [
+    "Manual Testing",
+    "Release Validation",
+    "Regression Testing",
+    "Agile Testing",
+    "End-to-End QA",
+    "QA Processes",
+  ],
+  linkedin: "https://www.linkedin.com/in/rehan-mohi-ud-din-591056204/",
+  email: COMPANY_QA_CONTACT_EMAIL,
+  image: "/leadership/rehan-mohi-ud-din-profile.png",
+  imagePosition: "center 22%",
+} as const;
+
+const qaEngineeringTeamProfiles = [salmanJamilProfile, rehanMohiUdDinProfile] as const;
 
 const recommendations = [
   {
@@ -329,6 +382,80 @@ export default function AboutPage() {
             </div>
           </article>
         </Reveal>
+
+        <div className="mt-4 flex min-w-0 w-full flex-col gap-4 lg:gap-5">
+          {qaEngineeringTeamProfiles.map((profile, index) => (
+            <Reveal key={profile.name} delay={0.06 + index * 0.05}>
+              <article
+                className={`${glassPanel} group relative h-full overflow-hidden p-5 transition-transform duration-200 hover:-translate-y-0.5 sm:p-6 lg:p-7`}
+              >
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -right-10 top-0 h-28 w-28 rounded-full bg-blue-950/25 opacity-60 blur-2xl transition-opacity duration-300 group-hover:opacity-85"
+                />
+                <div className="relative grid min-w-0 w-full grid-cols-1 gap-6 sm:gap-7 md:grid-cols-[minmax(0,260px)_minmax(0,1fr)] md:items-center md:gap-8 lg:grid-cols-[minmax(0,300px)_minmax(0,1fr)] lg:gap-10">
+                  <div className="relative isolate mx-auto w-full max-w-[280px] overflow-hidden rounded-2xl border border-white/[0.12] bg-slate-900/70 shadow-[0_20px_50px_-28px_rgba(15,23,42,0.9),0_0_0_1px_rgba(59,130,246,0.16)] md:mx-0 md:max-w-none">
+                    <div className="relative h-[13.5rem] w-full overflow-hidden sm:h-[15rem] md:h-[17.25rem] lg:h-[18.75rem]">
+                      <Image
+                        src={profile.image}
+                        alt={`${profile.name} portrait`}
+                        fill
+                        sizes="(min-width: 1024px) 300px, (min-width: 768px) 260px, (min-width: 640px) 280px, 100vw"
+                        className="object-cover"
+                        style={{ objectPosition: profile.imagePosition }}
+                        quality={94}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="min-w-0 text-center md:flex md:flex-col md:justify-center md:text-left">
+                    <h3 className="text-2xl font-semibold tracking-tight text-white sm:text-[1.75rem] lg:text-[1.85rem]">
+                      {profile.name}
+                    </h3>
+                    <p className="mt-2 text-sm font-medium text-blue-200/85 sm:text-base">
+                      {profile.role}
+                    </p>
+
+                    <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-300 md:mx-0 md:mt-5 md:max-w-none">
+                      {profile.bio}
+                    </p>
+
+                    <div className="mt-5 flex flex-wrap justify-center gap-2 md:justify-start md:gap-2.5">
+                      {profile.specialties.map((tag) => (
+                        <span
+                          key={tag}
+                          className="inline-flex items-center rounded-full border border-white/[0.1] bg-white/[0.03] px-3 py-1 text-xs font-medium text-slate-300"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="mt-6 flex flex-wrap justify-center gap-2.5 md:justify-start">
+                      <a
+                        href={profile.linkedin}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 rounded-lg border border-white/[0.12] bg-white/[0.04] px-3.5 py-2 text-sm font-medium text-slate-200 transition-colors duration-200 hover:border-white/[0.18] hover:bg-white/[0.08] hover:text-white"
+                      >
+                        <IconLinkedIn className="size-4" />
+                        LinkedIn
+                      </a>
+                      <a
+                        href={`mailto:${profile.email}`}
+                        aria-label={`Email ${profile.name}`}
+                        className="inline-flex items-center gap-2 rounded-lg border border-white/[0.12] bg-white/[0.04] px-3.5 py-2 text-sm font-medium text-slate-200 shadow-sm transition-colors duration-200 ease-out hover:border-white/[0.2] hover:bg-white/[0.08] hover:text-white hover:shadow-[0_8px_28px_-14px_rgba(15,23,42,0.75)] active:bg-white/[0.06]"
+                      >
+                        <Mail className="size-4" strokeWidth={1.8} />
+                        Contact
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
       </div>
 
       <div className="mt-11 lg:mt-12">
@@ -391,18 +518,18 @@ export default function AboutPage() {
 
       <div className="mt-11 lg:mt-12">
         <SectionHeading
-          badge="Timeline"
-          title="Depth built over consecutive release cycles"
-          description="How our practice matured alongside the teams we support."
+          badge="Experience Evolution"
+          title="Built Through Real QA Delivery Experience"
+          description="Engineering maturity that shows up in how releases are validated, how automation scales, and how QA partners with delivery—not a year-by-year company history."
         />
         <div className="mt-7 space-y-3.5">
-          {timeline.map((item, index) => (
+          {evolutionMilestones.map((item, index) => (
             <Reveal key={item.title} delay={index * 0.05}>
               <div
                 className={`${glassPanel} grid gap-3 p-5 sm:grid-cols-[7.5rem_1fr] sm:gap-6 sm:p-6`}
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 sm:pt-1">
-                  {item.year}
+                  {item.phase}
                 </p>
                 <div>
                   <p className="text-lg font-semibold tracking-tight text-white">
