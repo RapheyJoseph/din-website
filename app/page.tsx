@@ -16,8 +16,8 @@ import { SectionDivider } from "@/components/ui/section-divider";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { SectionShell } from "@/components/ui/section-shell";
 import { ServiceCard } from "@/components/ui/service-card";
-import { TestimonialCard } from "@/components/ui/testimonial-card";
-import { coreServices, faqs, stats, testimonials } from "@/lib/data";
+import { QaOutcomeCard } from "@/components/ui/qa-outcome-card";
+import { coreServices, faqs, qaOutcomeSnapshots, stats } from "@/lib/data";
 import { FaqItem } from "@/components/ui/faq-item";
 import {
   btnPrimaryHero,
@@ -153,14 +153,14 @@ export default function Home() {
       <SectionShell>
         <SectionHeading
           vibrantTitle
-          badge="Client voices"
-          title="What leaders say after partnering with Daily IT Needs"
-          description="Representative engagement outcomes from product and engineering teams operating at scale."
+          badge="Representative outcomes"
+          title="Representative QA Outcomes"
+          description="Examples of measurable quality engineering improvements delivered through QA, automation, accessibility, and release validation engagements."
         />
         <div className="mt-7 grid min-w-0 w-full grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 xl:grid-cols-3 xl:gap-5 2xl:gap-6">
-          {testimonials.map((item, index) => (
-            <Reveal key={item.name} delay={index * 0.06}>
-              <TestimonialCard testimonial={item} />
+          {qaOutcomeSnapshots.map((item, index) => (
+            <Reveal key={item.headline} delay={index * 0.06}>
+              <QaOutcomeCard outcome={item} />
             </Reveal>
           ))}
         </div>

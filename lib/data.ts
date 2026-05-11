@@ -78,34 +78,31 @@ export const stats = [
   },
 ];
 
-export type Testimonial = {
-  quote: string;
-  name: string;
-  role: string;
-  company: string;
+/** Representative outcome summaries—not attributed client endorsements. */
+export type QaOutcomeSnapshot = {
+  category: string;
+  headline: string;
+  description: string;
 };
 
-export const testimonials: Testimonial[] = [
+export const qaOutcomeSnapshots: QaOutcomeSnapshot[] = [
   {
-    quote:
-      "Within two sprints, Daily IT Needs rebuilt our regression suite and gave us release sign-off we could defend to the board. Hotfix volume dropped measurably.",
-    name: "Sarah Chen",
-    role: "VP of Product",
-    company: "Northbridge Payments",
+    category: "Regression Automation",
+    headline: "Reduced regression execution from days to hours",
+    description:
+      "Refactored unstable automation coverage into maintainable QA workflows with improved CI reporting and release visibility.",
   },
   {
-    quote:
-      "Our Cypress suite was flaky and slow. Daily IT Needs refactored the framework, added proper reporting in CI, and we went from days to hours for regression.",
-    name: "Marcus Webb",
-    role: "Director of Engineering",
-    company: "HelixCart B2B SaaS",
+    category: "Release Validation",
+    headline: "Improved release confidence before production rollout",
+    description:
+      "Introduced structured QA validation checkpoints and defect triage workflows across Agile delivery cycles.",
   },
   {
-    quote:
-      "They operate like an embedded QA org—clear comms, actionable bug reports, and accessibility work that stuck through redesigns.",
-    name: "Priya Natarajan",
-    role: "Chief Technology Officer",
-    company: "VitalStream Health",
+    category: "Accessibility & UX",
+    headline: "Detected usability and accessibility blockers early",
+    description:
+      "Identified WCAG and critical user flow issues before production launch to reduce post-release risk.",
   },
 ];
 
