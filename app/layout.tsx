@@ -19,6 +19,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  themeColor: "#020617",
 };
 
 export const metadata: Metadata = {
@@ -39,10 +40,12 @@ export const metadata: Metadata = {
     "Daily IT Needs",
   ],
   applicationName: "Daily IT Needs",
-  icons: {
-    icon: [{ url: "/brand/logo-globe-512.png", sizes: "512x512", type: "image/png" }],
-    apple: [{ url: "/brand/logo-globe-180.png", sizes: "180x180", type: "image/png" }],
-  },
+  manifest: "/site.webmanifest",
+  /**
+   * Favicons: Next App Router file convention (`app/favicon.ico`, `app/icon.png`,
+   * `app/apple-icon.png`) — generated from `/public/brand` via `npm run build:icons`.
+   * Avoid duplicating `metadata.icons` here so we do not override or double-inject links.
+   */
   openGraph: {
     type: "website",
     siteName: "Daily IT Needs",

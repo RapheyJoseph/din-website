@@ -1,0 +1,23 @@
+{
+  "name": "Daily IT Needs",
+  "short_name": "Daily IT Needs",
+  "description": "Premium QA, test automation, and release confidence for modern software teams.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "icons": [
+    {
+      "src": "/brand/logo-globe-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/brand/logo-globe-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -6,6 +6,7 @@
     "dev": "next dev",
     "dev:insecure-tls": "NODE_TLS_REJECT_UNAUTHORIZED=0 next dev",
     "build": "next build",
+    "build:icons": "node scripts/build-favicon.mjs",
     "start": "next start",
     "lint": "eslint"
   },
@@ -24,6 +25,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "png-to-ico": "^3.0.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
